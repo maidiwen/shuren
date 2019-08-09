@@ -1,101 +1,64 @@
 import * as WebBrowser from 'expo-web-browser';
 import React,{useEffect} from 'react';
 import {
-  Image,
-  Platform,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import { MonoText } from '../components/StyledText';
-import Avatar from '../components/DicebearAvatar'
-
-export default function HomeScreen() {
+import { Icon, ListItem } from 'react-native-elements';
+import {RoomAvatar} from '../components/DicebearAvatar';
+export default function HomeScreen({navigation}) {
 
   return (
-    <View style={styles.container}>
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={styles.contentContainer}>
-        <View style={styles.welcomeContainer}>
-          <Avatar width={50} uri="http://p3.music.126.net/C8950M-wl-s1gjQqXvXmDg==/109951164091880958.jpg?param=50y50"/>
-          <Avatar width={50} sprites="female" seed="10035"/>
-        </View>
-
-        <View style={styles.getStartedContainer}>
-          <DevelopmentModeNotice />
-
-          <Text style={styles.getStartedText}>Get started by opening</Text>
-
-          <View
-            style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-            <MonoText>screens/HomeScreen.js</MonoText>
-          </View>
-
-          <Text style={styles.getStartedText}>
-            Change this text and your app will automatically reload.
-          </Text>
-        </View>
-
+      <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
         <View style={styles.helpContainer}>
-          <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
-            <Text style={styles.helpLinkText}>
-              Help, it didn’t automatically reload!
-            </Text>
+          <TouchableOpacity onPress={()=> navigation.navigate('SearchRoom')} style={styles.helpLink}>
+            <Icon name="ios-search" type='ionicon' color='#6e6e6e' />
+            <Text style={styles.helpLinkText}>搜索加群</Text>
           </TouchableOpacity>
         </View>
+
+        <ListItem
+            title='官方每日通知'
+            leftElement={<Icon name="ios-notifications-outline" type='ionicon' color='#673AB7' size={26} style={{width:28}}/>}
+            bottomDivider={true}
+            rightIcon={{name: 'ios-arrow-forward',type:'ionicon',color:'#eee'}}
+            onPress={()=> navigation.navigate('MyTeam')}
+          />
+          
+          <ListItem
+            title='申请加群通知'
+            leftElement={<Icon name="ios-notifications-outline" type='ionicon' color='#8BC34A' size={26} style={{width:28}}/>}
+            bottomDivider={true}
+            rightIcon={{name: 'ios-arrow-forward',type:'ionicon',color:'#eee'}}
+            onPress={()=> navigation.navigate('MyClub')}
+            style={{marginBottom:5}}
+          />
+          <ListItem
+            title='咿呀群'
+            containerStyle={{paddingVertical:10}}
+            leftElement={<RoomAvatar seed="8923" />}
+            bottomDivider={true}
+            badge={{status:"error"}}
+            onPress={()=> navigation.navigate('Chat')}
+          />
+          <ListItem
+            title='咿呀群'
+            containerStyle={{paddingVertical:10}}
+            leftElement={<RoomAvatar sprites="identicon" seed="8923" />}
+            bottomDivider={true}
+            badge={{status:"error"}}
+            onPress={()=> navigation.navigate('Chat')}
+          />
       </ScrollView>
-
-      <View style={styles.tabBarInfoContainer}>
-        <Text style={styles.tabBarInfoText}>
-          This is a tab bar. You can edit it in:
-        </Text>
-
-        <View
-          style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-          <MonoText style={styles.codeHighlightText}>
-            navigation/MainTabNavigator.js
-          </MonoText>
-        </View>
-      </View>
-    </View>
   );
 }
 
 HomeScreen.navigationOptions = {
-  header: null,
+  title: '群聊',
 };
-
-function DevelopmentModeNotice() {
-  if (__DEV__) {
-    const learnMoreButton = (
-      <Text onPress={handleLearnMorePress} style={styles.helpLinkText}>
-        Learn more
-      </Text>
-    );
-
-    return (
-      <Text style={styles.developmentModeText}>
-        Development mode is enabled: your app will be slower but you can use
-        useful development tools. {learnMoreButton}
-      </Text>
-    );
-  } else {
-    return (
-      <Text style={styles.developmentModeText}>
-        You are not in development mode: your app will run at full speed.
-      </Text>
-    );
-  }
-}
-
-function handleLearnMorePress() {
-  WebBrowser.openBrowserAsync(
-    'https://docs.expo.io/versions/latest/workflow/development-mode/'
-  );
-}
 
 function handleHelpPress() {
   WebBrowser.openBrowserAsync(
@@ -106,88 +69,24 @@ function handleHelpPress() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-  },
-  developmentModeText: {
-    marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: 'center',
+    backgroundColor: '#eee',
   },
   contentContainer: {
-    paddingTop: 30,
-  },
-  welcomeContainer: {
-    alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
-  },
-  welcomeImage: {
-    width: 100,
-    height: 100,
-    resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
-  },
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
-  },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
-  },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  getStartedText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    lineHeight: 24,
-    textAlign: 'center',
-  },
-  tabBarInfoContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 20,
-      },
-    }),
-    alignItems: 'center',
-    backgroundColor: '#fbfbfb',
-    paddingVertical: 20,
-  },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    textAlign: 'center',
-  },
-  navigationFilename: {
-    marginTop: 5,
+    paddingTop: 5,
   },
   helpContainer: {
-    marginTop: 15,
     alignItems: 'center',
+    marginBottom:5,
+    backgroundColor:'#FFF'
   },
   helpLink: {
-    paddingVertical: 15,
+    paddingVertical: 5,
+    flexDirection: 'row',
+    alignItems:'center'
   },
   helpLinkText: {
-    fontSize: 14,
-    color: '#2e78b7',
+    fontSize: 16,
+    color: '#6e6e6e',
+    marginLeft:5
   },
 });
