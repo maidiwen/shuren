@@ -5,6 +5,8 @@ import MainTabNavigator from './MainTabNavigator';
 import SearchRoom from '../screens/SearchRoom';
 import Chat from '../screens/Chat';
 import SendHongBao from '../screens/SendHongBao';
+import Login from '../screens/Login';
+import Register from '../screens/Register';
 const AppStack = createStackNavigator({
   Main: {
     screen:MainTabNavigator,
@@ -15,13 +17,15 @@ const AppStack = createStackNavigator({
   },
   SearchRoom,
   Chat,
-  SendHongBao
+  SendHongBao,
+  Login,
+  Register,
 },{
-  initialRouteName: 'Chat',//Main
+  initialRouteName: 'Login',//Main
 });
 export default createAppContainer(
   createSwitchNavigator({
     AppStack,
-    
+
   })
 );
