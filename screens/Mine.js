@@ -18,7 +18,7 @@ export default function Mine(){
             titleStyle={{fontSize: 20,fontWeight: 'bold'}}
             subtitle={'用户：'+uid}
             subtitleStyle={{color:'#6e6e6e',marginTop:10}}
-            leftElement={<Avatar uri="human" seed={uid} />}
+            leftElement={<Avatar uri="" seed={uid} />}
             onPress={()=>this.props.navigation.navigate('MineDetail')}
             rightIcon={{name: 'ios-arrow-forward',type:'ionicon',color:'#6e6e6e'}}
             bottomDivider={true}
