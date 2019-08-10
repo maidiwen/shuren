@@ -1,18 +1,41 @@
-import React,{useState} from 'react';
+import React from 'react';
 import {View,Platform,KeyboardAvoidingView} from 'react-native';
-import { Icon, ListItem,Input,Button } from 'react-native-elements';
+import { Icon} from 'react-native-elements';
 import Avatar from '../components/DicebearAvatar';
-import { GiftedChat } from 'react-native-gifted-chat';
+import { GiftedChat,Bubble } from 'react-native-gifted-chat';
+import HongBaoItem from '../components/HongBaoItem';
+
+const wrapperStyle = {
+  left:{
+      borderRadius: 15,
+      backgroundColor: '#FFF',
+      marginRight: 60,
+      minHeight: 20,
+      justifyContent: 'flex-end',
+  },
+};
+
 
 const renderAvatar =({currentMessage})=>{
-  //console.log(currentMessage);
   return (<Avatar width={36} uri={currentMessage.user.avatar} seed={`${currentMessage.user._id}`}/>);
 }
-const renderActions = ()=>{
+const renderBubble = (props)=>{
+  const { currentMessage } = props;
+  if(currentMessage.gid && currentMessage.gid>0){
+      return <HongBaoItem {...props} pressHongBao={()=>this._pressHongBao(currentMessage)}/>;
+  }
+  return <Bubble {...props} wrapperStyle={wrapperStyle} />;
+}
+const renderActions = (onPress)=>{
   return(
-    <View
-      style={{height:26,width:26,marginLeft: 10,marginBottom:10}}
-    ><Icon name="ios-add-circle-outline" type='ionicon' color='#6e6e6e' size={26}/>
+    <View style={{height:26,width:26,marginLeft: 10,marginBottom:10}} >
+      <Icon
+      name="ios-add-circle-outline"
+      type='ionicon'
+      color='#6e6e6e'
+      size={26}
+      onPress={onPress}
+      />
     </View>);
 }
 const AvoidingView = (props)=>{
@@ -26,12 +49,13 @@ const AvoidingView = (props)=>{
   }
   return props.children;
 }
-export default function HomeScreen() {
+export default function HomeScreen(props) {
   const messages = [
     {
       _id: 1,
-      text: 'Hello developer',
+      text: '100.00 # 1',
       createdAt: new Date(),
+      gid:123,
       user: {
         _id: 1,
         name: 'React Native',
@@ -55,13 +79,15 @@ export default function HomeScreen() {
       user: {
         _id: 1,
         name: 'React Native',
-        avatar: 'human',
+        avatar: '',
       },
     },
     {
       _id: 4,
-      text: 'Hello developer',
+      text: '群主福利红包',
       createdAt: new Date(),
+      gid:345,
+      opened:true,
       user: {
         _id: 3,
         name: '小明',
@@ -71,18 +97,21 @@ export default function HomeScreen() {
   ];
 
   return (
+    <View
+      style={{flex:1,backgroundColor:'#eee'}}
+    >
       <AvoidingView behavior="padding">
         <GiftedChat
           showUserAvatar={true}
           renderUsernameOnMessage ={true}
           renderAvatarOnTop={false}
           renderAvatar={renderAvatar}
-          renderActions={renderActions}
-          //onPressActionButton={()=>{}}
+          renderActions={()=>renderActions(()=>{props.navigation.navigate('SendHongBao')})}
+          renderBubble={renderBubble}
           maxInputLength={40}
           placeholder="请输入"
           label="发送"
-          dateFormat='MM-DD HH:mm'
+          dateFormat='MM-DD'
           timeFormat='HH:mm'
           messages={messages}
           user={{
@@ -90,6 +119,7 @@ export default function HomeScreen() {
           }}
         />
       </AvoidingView>
+    </View>
     
   );
 }

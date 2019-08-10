@@ -4,6 +4,7 @@ import { createAppContainer,createStackNavigator, createSwitchNavigator } from '
 import MainTabNavigator from './MainTabNavigator';
 import SearchRoom from '../screens/SearchRoom';
 import Chat from '../screens/Chat';
+import SendHongBao from '../screens/SendHongBao';
 const AppStack = createStackNavigator({
   Main: {
     screen:MainTabNavigator,
@@ -14,14 +15,13 @@ const AppStack = createStackNavigator({
   },
   SearchRoom,
   Chat,
+  SendHongBao
 },{
   initialRouteName: 'Chat',//Main
 });
 export default createAppContainer(
   createSwitchNavigator({
-    // You could add another route here for authentication.
-    // Read more at https://reactnavigation.org/docs/en/auth-flow.html
-    
     AppStack,
+    
   })
 );
