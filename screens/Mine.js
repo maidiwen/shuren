@@ -43,7 +43,7 @@ export default function Mine(){
           />
           
           <ListItem
-            title='我的俱乐部'
+            title='我是群主'
             leftElement={<Icon name="ios-contacts" color='#8BC34A' size={26} style={{width:28}}/>}
             bottomDivider={true}
             rightIcon={{name: 'ios-arrow-forward',type:'ionicon',color:'#6e6e6e'}}
@@ -69,7 +69,7 @@ Mine.navigationOptions = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:'#eee'
+    backgroundColor:'#f7f7f7'
   },
   welcomeImage: {
     width: 64,

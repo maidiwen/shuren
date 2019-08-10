@@ -1,4 +1,3 @@
-import * as WebBrowser from 'expo-web-browser';
 import React,{useEffect} from 'react';
 import {
   ScrollView,
@@ -13,10 +12,10 @@ export default function HomeScreen({navigation}) {
 
   return (
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-        <View style={styles.helpContainer}>
-          <TouchableOpacity onPress={()=> navigation.navigate('SearchRoom')} style={styles.helpLink}>
+        <View style={styles.searchContainer}>
+          <TouchableOpacity onPress={()=> navigation.navigate('SearchRoom')} style={styles.searchLink}>
             <Icon name="ios-search" type='ionicon' color='#6e6e6e' />
-            <Text style={styles.helpLinkText}>搜索加群</Text>
+            <Text style={styles.searchLinkText}>搜索加群</Text>
           </TouchableOpacity>
         </View>
 
@@ -37,7 +36,7 @@ export default function HomeScreen({navigation}) {
             style={{marginBottom:5}}
           />
           <ListItem
-            title='咿呀群'
+            title='咿呀群 50～300 1.62'
             containerStyle={{paddingVertical:10}}
             leftElement={<RoomAvatar seed="8923" />}
             bottomDivider={true}
@@ -45,7 +44,7 @@ export default function HomeScreen({navigation}) {
             onPress={()=> navigation.navigate('Chat')}
           />
           <ListItem
-            title='咿呀群'
+            title='随便一个群名称'
             containerStyle={{paddingVertical:10}}
             leftElement={<RoomAvatar sprites="identicon" seed="8923" />}
             bottomDivider={true}
@@ -60,31 +59,26 @@ HomeScreen.navigationOptions = {
   title: '群聊',
 };
 
-function handleHelpPress() {
-  WebBrowser.openBrowserAsync(
-    'https://docs.expo.io/versions/latest/workflow/up-and-running/#cant-see-your-changes'
-  );
-}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#eee',
+    backgroundColor: '#f7f7f7',
   },
   contentContainer: {
     paddingTop: 5,
   },
-  helpContainer: {
+  searchContainer: {
     alignItems: 'center',
     marginBottom:5,
     backgroundColor:'#FFF'
   },
-  helpLink: {
+  searchLink: {
     paddingVertical: 5,
     flexDirection: 'row',
     alignItems:'center'
   },
-  helpLinkText: {
+  searchLinkText: {
     fontSize: 16,
     color: '#6e6e6e',
     marginLeft:5

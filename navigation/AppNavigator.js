@@ -18,14 +18,18 @@ const AppStack = createStackNavigator({
   SearchRoom,
   Chat,
   SendHongBao,
+  
+},{
+  initialRouteName: 'Main',//Main
+});
+
+const AuthStack = createStackNavigator({
   Login,
   Register,
-},{
-  initialRouteName: 'Login',//Main
 });
 export default createAppContainer(
   createSwitchNavigator({
     AppStack,
-
+    AuthStack,
   })
 );

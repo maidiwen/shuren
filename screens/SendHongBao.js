@@ -1,7 +1,6 @@
 import React,{useState} from 'react';
-import { ScrollView,View, StyleSheet,Text } from 'react-native';
+import { ScrollView,StyleSheet,Text } from 'react-native';
 import { ListItem,Button } from 'react-native-elements';
-import { LinearGradient } from 'expo-linear-gradient';
 const InputItem = ({title,unit,onChangeText,value,style})=>{
   return (<ListItem
     title={title}
